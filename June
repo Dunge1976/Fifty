@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Einladung</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f4;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.card-container {
+  perspective: 1200px;
+}
+
+.card {
+  width: 320px;
+  height: 420px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+  cursor: pointer;
+}
+
+.card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+</style>
+</head>
+
+<body>
+
+<div class="card-container">
+  <div class="card" id="card">
+
+    <!-- VORDERSEITE -->
+    <div class="card-face card-front">
+      <div>
+        <h1>Einladung</h1>
+        <p>zum Geburtstag</p>
+        <small>Tippen oder wischen</small>
+      </div>
+    </div>
+
+    <!-- RÜCKSEITE -->
+    <div class="card-face card-back">
+      <div>
+        <h2>Details</h2>
+        <p>Hier kommt dein Text rein.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const card = document.getElementById('card');
+
+card.addEventListener('click', () => {
+  card.classList.toggle('is-flipped');
+});
+
+// Swipe-Erkennung
+let startX = 0;
+
+card.addEventListener('touchstart', e => {
+  startX = e.touches[0].clientX;
+});
+
+card.addEventListener('touchend', e => {
+  const endX = e.changedTouches[0].clientX;
+  if (Math.abs(startX - endX) > 50) {
+    card.classList.toggle('is-flipped');
+  }
+});
+</script>
+
+</body>
+</html>
